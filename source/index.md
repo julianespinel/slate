@@ -18,7 +18,7 @@ search: false
 
 Facturala es un sistema que permite generar facturas por computador on demand: [facturala.co](http://facturala.co)
 
-Para utilizar el API de Facturala es necesario pedir un token de autorización. Para obtener uno contactanos en `ìnfo@facturala.co`
+Para utilizar el API de Facturala es necesario tener un token de autorización. Para obtener uno contactanos en `ìnfo@facturala.co`
 
 Todos los llamados al API deben enviar este token de autorización como valor del header `Authorization` (ver ejemplos en la documentación de cada uno de los servicios).
 
@@ -142,14 +142,14 @@ Las posibles respuestas que puede generar este servicio son:
 1. `Status Code: 201`<br>
 Indica que la factura ha sido creada correctamente.<br>
 Adicionalmente retorna un mensaje JSON (ver ejemplo a la derecha).<br><br>
-2. `Status code: 400`<br>
+1. `Status code: 400`<br>
 Indica que el companyId o la factura enviada en el body del request no son válidos.<br><br>
-3. `Status code: 401`<br>
+1. `Status code: 401`<br>
 Indica que el token de autorización enviado en el header 'Authorization' no es un token válido.<br><br>
-4. `Status code: 403`<br>
+1. `Status code: 403`<br>
 Indica que el usuario no tiene permisos para ejecutar el request.<br><br>
-5. `Status code: 500`<br>
-Indica que hubo un error de Factúrala, por favor contacte al equipo de soporte.<br>
+1. `Status code: 500`<br>
+Indica que hubo un error en los servidores de Factúrala, por favor contacte al equipo de soporte.<br>
 
 ## Actualizar estado de una factura
 
@@ -191,7 +191,7 @@ Indica que el token de autorización enviado en el header 'Authorization' no es 
 1. `Status code: 403`<br>
 Indica que el usuario no tiene permisos para ejecutar el request.<br><br>
 1. `Status code: 500`<br>
-Indica que hubo un error de Factúrala, por favor contacte al equipo de soporte.<br>
+Indica que hubo un error en los servidores de Factúrala, por favor contacte al equipo de soporte.<br>
 
 ## Consultar una factura
 
@@ -279,7 +279,7 @@ Indica que el token de autorización enviado en el header 'Authorization' no es 
 1. `Status code: 403`<br>
 Indica que el usuario no tiene permisos para ejecutar el request.<br><br>
 1. `Status code: 500`<br>
-Indica que hubo un error de Factúrala, por favor contacte al equipo de soporte.<br>
+Indica que hubo un error en los servidores de Factúrala, por favor contacte al equipo de soporte.<br>
 
 ## Consultar múltiples facturas
 
@@ -419,4 +419,4 @@ Indica que el token de autorización enviado en el header 'Authorization' no es 
 1. `Status code: 403`<br>
 Indica que el usuario no tiene permisos para ejecutar el request.<br><br>
 1. `Status code: 500`<br>
-Indica que hubo un error de Factúrala, por favor contacte al equipo de soporte.<br>
+Indica que hubo un error en los servidores de Factúrala, por favor contacte al equipo de soporte.<br>
