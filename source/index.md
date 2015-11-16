@@ -1,168 +1,422 @@
 ---
-title: API Reference
+title: Facturala API Reference
 
 language_tabs:
-  - shell
-  - ruby
-  - python
+  - http
 
 toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
   - <a href='http://github.com/tripit/slate'>Documentation Powered by Slate</a>
 
 includes:
-  - errors
+  - errores
+  - soporte
 
-search: true
+search: false
 ---
 
-# Introduction
+# Facturala API
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+Facturala es un sistema que permite generar facturas por computador on demand: [facturala.co](http://facturala.co)
 
-We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
+Para utilizar el API de Facturala es necesario pedir un token de autorización. Para obtener uno contactanos en `ìnfo@facturala.co`
 
-This example API documentation page was created with [Slate](http://github.com/tripit/slate). Feel free to edit it and use it as a base for your own API's documentation.
+Todos los llamados al API deben enviar este token de autorización como valor del header `Authorization` (ver ejemplos en la documentación de cada uno de los servicios).
 
-# Authentication
+El API de Facturala tiene 4 servicios:
 
-> To authorize, use this code:
+1. Crear factura
+2. Actualizar el estado de una factura
+3. Consultar una factura
+4. Consultar múltiples facturas
 
-```ruby
-require 'kittn'
+# Factura
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-```
+## Crear factura
 
-```python
-import kittn
+```http
+POST /facturala/api/companies/56491cd4e4b0c19ae3b74ed3/invoices HTTP/1.1
+Accept: application/json
+Content-Type: application/json;charset=UTF-8
+Authorization: 66e58291f7cbcd5157f3
 
-api = kittn.authorize('meowmeowmeow')
-```
-
-```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
-```
-
-> Make sure to replace `meowmeowmeow` with your API key.
-
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
-
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
-
-`Authorization: meowmeowmeow`
-
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
-
-# Kittens
-
-## Get All Kittens
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
-```
-
-```shell
-curl "http://example.com/api/kittens"
-  -H "Authorization: meowmeowmeow"
-```
-
-> The above command returns JSON structured like this:
-
-```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Isis",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
-  }
-]
-```
-
-This endpoint retrieves all kittens.
-
-### HTTP Request
-
-`GET http://example.com/api/kittens`
-
-### Query Parameters
-
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
-
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-
-## Get a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2"
-  -H "Authorization: meowmeowmeow"
-```
-
-> The above command returns JSON structured like this:
-
-```json
 {
-  "id": 2,
-  "name": "Isis",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
+    "creationDate": "2015-11-16T00:03:53.846Z",
+    "dueDate": "2015-12-31T05:00:00.000Z",
+    "state": "PENDING",
+    "customer": {
+        "idType": "CC",
+        "country": "Colombia",
+        "name": "Carlos Rodriguez",
+        "idNumber": "304204672683",
+        "address": "Cl 34 # 45 - 10",
+        "city": "Medellín",
+        "state": "Antioquia",
+        "email": "crodriguez@gmail.com"
+    },
+    "items": [
+        {
+            "name": "Computador",
+            "description": "Asus K45V",
+            "unitValue": 1600000,
+            "quantity": 1
+        }
+    ],
+    "thanks": "Gracias",
+    "note": "Se aplicará una multa equivalente al 1.5% despues de 30 días de mora.",
+    "footer": "Factura creada en computador y es válida sin firma y sello."
 }
 ```
 
-This endpoint retrieves a specific kitten.
+> El llamado al API fue exitoso si retorna la siguiente respuesta:
 
-<aside class="warning">If you're not using an administrator API key, note that some kittens will return 403 Forbidden if they are hidden for admins only.</aside>
+```http
+
+HTTP/1.1 201 Created
+Content-Type: application/json
+
+{
+    "creationDate": "2015-11-16T00:03:53.846Z",
+    "dueDate": "2015-12-31T05:00:00.000Z",
+    "state": "PENDING",
+    "invoicePDFUrl": "",
+    "invoiceTemplate": {
+        "companyId": "56491cd4e4b0c19ae3b74ed3",
+        "header": null,
+        "companyData": {
+            "name": "Facturala",
+            "address": "Cll 123 # 12 - 23",
+            "phone": "1234567",
+            "email": "info@facturala.co",
+            "logoUrl": "1da7993d-931a-414b-b494-82c658965d8c.png"
+        },
+        "thanks": "Gracias",
+        "note": "Se aplicará una multa equivalente al 1.5% despues de 30 días de mora.",
+        "footer": "Factura creada en computador y es válida sin firma y sello.",
+        "templateName": "template.ftl"
+    },
+    "number": "1",
+    "customer": {
+        "name": "Carlos Rodriguez",
+        "idType": "CC",
+        "idNumber": "304204672683",
+        "address": "Cl 34 # 45 - 10",
+        "city": "Medellín",
+        "state": "Antioquia",
+        "country": "Colombia",
+        "email": "crodriguez@gmail.com"
+    },
+    "items": [
+        {
+            "name": "Computador",
+            "description": "Asus K45V",
+            "quantity": 1,
+            "unitValue": 1600000,
+            "discount": null,
+            "total": 1600000
+        }
+    ],
+    "totals": {
+        "subTotalNoDiscounts": 1379310.34,
+        "discounts": 0,
+        "total": 1600000,
+        "taxes": 220689.65
+    }
+}
+```
+
+Servicio para generar una factura.
 
 ### HTTP Request
 
-`GET http://example.com/kittens/<ID>`
+`POST /facturala/api/companies/:companyId/invoices`<br>
+`Accept: application/json`<br>
+`Content-Type: application/json`<br>
+`Authorization: :authToken`<br>
 
-### URL Parameters
+Se debe enviar una factura en el body del llamado (ver ejemplo a la derecha).
 
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to retrieve
+### HTTP Response
 
+Las posibles respuestas que puede generar este servicio son:
+
+1. `Status Code: 201`<br>
+Indica que la factura ha sido creada correctamente.<br>
+Adicionalmente retorna un mensaje JSON (ver ejemplo a la derecha).<br><br>
+2. `Status code: 400`<br>
+Indica que el companyId o la factura enviada en el body del request no son válidos.<br><br>
+3. `Status code: 401`<br>
+Indica que el token de autorización enviado en el header 'Authorization' no es un token válido.<br><br>
+4. `Status code: 403`<br>
+Indica que el usuario no tiene permisos para ejecutar el request.<br><br>
+5. `Status code: 500`<br>
+Indica que hubo un error de Factúrala, por favor contacte al equipo de soporte.<br>
+
+## Actualizar estado de una factura
+
+```http
+PUT /facturala/api/companies/56491cd4e4b0c19ae3b74ed3/invoices/1/state HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+Authorization: 66e58291f7cbcd5157f3
+
+{
+    "state": "PAID"
+}
+```
+
+Servicio para actualizar el estado de una factura.<br>
+Una factura tiene 3 posibles estados: PAID, PENDING, CANCELED.
+
+### HTTP Request
+
+`PUT /facturala/api/companies/:companyId/invoices/:invoiceNumber/state`<br>
+`Accept: application/json`<br>
+`Content-Type: application/json`<br>
+`Authorization: :authToken`<br>
+
+Se debe enviar un mensaje JSON en el body del llamado (ver ejemplo a la derecha).
+
+### HTTP Response
+
+Las posibles respuestas que puede generar este servicio son:
+
+1. `Status Code: 200`<br>
+Indica que el estado de la factura ha sido actualizado correctamente.<br><br>
+1. `Status code: 404`<br>
+Indica que el invoiceNumber enviado en la URL no pertenece a ninguna factura creada.<br><br>
+1. `Status code: 400`<br>
+Indica que el companyId, el invoiceNumber o el JSON enviado en el body del request no son válidos.<br><br>
+1. `Status code: 401`<br>
+Indica que el token de autorización enviado en el header 'Authorization' no es un token válido.<br><br>
+1. `Status code: 403`<br>
+Indica que el usuario no tiene permisos para ejecutar el request.<br><br>
+1. `Status code: 500`<br>
+Indica que hubo un error de Factúrala, por favor contacte al equipo de soporte.<br>
+
+## Consultar una factura
+
+```http
+GET /facturala/api/companies/56491cd4e4b0c19ae3b74ed3/invoices/1 HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+Authorization: 66e58291f7cbcd5157f3
+```
+> El llamado al API fue exitoso si retorna la siguiente respuesta:
+
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+    "creationDate": "2015-11-16T00:03:53.846Z",
+    "dueDate": "2015-12-31T05:00:00.000Z",
+    "state": "PAID",
+    "invoicePDFUrl": "",
+    "invoiceTemplate": {
+        "companyId": "56491cd4e4b0c19ae3b74ed3",
+        "header": null,
+        "companyData": {
+            "name": "Facturala",
+            "address": "Cll 123 # 12 - 23",
+            "phone": "1234567",
+            "email": "info@facturala.co",
+            "logoUrl": "1da7993d-931a-414b-b494-82c658965d8c.png"
+        },
+        "thanks": "Gracias",
+        "note": "Se aplicará una multa equivalente al 1.5% despues de 30 días de mora.",
+        "footer": "Factura creada en computador y es válida sin firma y sello.",
+        "templateName": "template.ftl"
+    },
+    "number": "1",
+    "customer": {
+        "name": "Carlos Rodriguez",
+        "idType": "CC",
+        "idNumber": "304204672683",
+        "address": "Cl 34 # 45 - 10",
+        "city": "Medellín",
+        "state": "Antioquia",
+        "country": "Colombia",
+        "email": "crodriguez@gmail.com"
+    },
+    "items": [
+        {
+            "name": "Computador",
+            "description": "Asus K45V",
+            "quantity": 1,
+            "unitValue": 1600000,
+            "discount": null,
+            "total": 1600000
+        }
+    ],
+    "totals": {
+        "subTotalNoDiscounts": 1379310.34,
+        "discounts": 0,
+        "total": 1600000,
+        "taxes": 220689.65
+    }
+}
+```
+
+Servicio para consultar una factura específica de una compañía.
+
+### HTTP Request
+
+`GET /facturala/api/companies/:companyId/invoices`<br>
+`Accept: application/json`<br>
+`Content-Type: application/json`<br>
+`Authorization: :authToken`<br>
+
+No se debe enviar nada en el body del llamado.
+
+### HTTP Response 
+
+1. `Status Code: 200`<br>
+Indica que se ha retornado el resultado esperado.<br><br>
+1. `Status code: 400`<br>
+Indica que el companyId enviado en la URL no es válido.<br><br>
+1. `Status code: 401`<br>
+Indica que el token de autorización enviado en el header 'Authorization' no es un token válido.<br><br>
+1. `Status code: 403`<br>
+Indica que el usuario no tiene permisos para ejecutar el request.<br><br>
+1. `Status code: 500`<br>
+Indica que hubo un error de Factúrala, por favor contacte al equipo de soporte.<br>
+
+## Consultar múltiples facturas
+
+```http
+GET /facturala/api/companies/56491cd4e4b0c19ae3b74ed3/invoices HTTP/1.1
+Accept: application/json
+Content-Type: application/json
+Authorization: 66e58291f7cbcd5157f3
+```
+> El llamado al API fue exitoso si retorna la siguiente respuesta:
+
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+[
+    {
+        "creationDate": "2015-11-16T00:03:53.846Z",
+        "dueDate": "2015-12-31T05:00:00.000Z",
+        "state": "PAID",
+        "invoicePDFUrl": "",
+        "invoiceTemplate": {
+            "companyId": "56491cd4e4b0c19ae3b74ed3",
+            "header": null,
+            "companyData": {
+                "name": "Facturala",
+                "address": "Cll 123 # 12 - 23",
+                "phone": "1234567",
+                "email": "info@facturala.co",
+                "logoUrl": "1da7993d-931a-414b-b494-82c658965d8c.png"
+            },
+            "thanks": "Gracias",
+            "note": "Se aplicará una multa equivalente al 1.5% despues de 30 días de mora.",
+            "footer": "Factura creada en computador y es válida sin firma y sello.",
+            "templateName": "template.ftl"
+        },
+        "number": "1",
+        "customer": {
+            "name": "Carlos Rodriguez",
+            "idType": "CC",
+            "idNumber": "304204672683",
+            "address": "Cl 34 # 45 - 10",
+            "city": "Medellín",
+            "state": "Antioquia",
+            "country": "Colombia",
+            "email": "crodriguez@gmail.com"
+        },
+        "items": [
+            {
+                "name": "Computador",
+                "description": "Asus K45V",
+                "quantity": 1,
+                "unitValue": 1600000,
+                "discount": null,
+                "total": 1600000
+            }
+        ],
+        "totals": {
+            "subTotalNoDiscounts": 1379310.34,
+            "discounts": 0,
+            "total": 1600000,
+            "taxes": 220689.65
+        }
+    },
+    {
+        "creationDate": "2015-11-16T00:57:19.275Z",
+        "dueDate": "2015-11-21T05:00:00.000Z",
+        "state": "PAID",
+        "invoicePDFUrl": "",
+        "invoiceTemplate": {
+            "companyId": "56491cd4e4b0c19ae3b74ed3",
+            "header": null,
+            "companyData": {
+                "name": "Facturala",
+                "address": "Cll 123 # 12 - 23",
+                "phone": "1234567",
+                "email": "info@facturala.co",
+                "logoUrl": "1da7993d-931a-414b-b494-82c658965d8c.png"
+            },
+            "thanks": "Gracias",
+            "note": "Se aplicará una multa equivalente al 1.5% despues de 30 días de mora.",
+            "footer": "Factura creada en computador y es válida sin firma y sello.",
+            "templateName": "template.ftl"
+        },
+        "number": "2",
+        "customer": {
+            "name": "Felipe Restrepo",
+            "idType": "CC",
+            "idNumber": "40750374503",
+            "address": "Cl 145 # 13 - 25",
+            "city": "Bogota",
+            "state": "Cundinamarca",
+            "country": "Colombia",
+            "email": "frestrepo@gmail.com"
+        },
+        "items": [
+            {
+                "name": "Mouse",
+                "description": "Wireless mobile mouse 1000",
+                "quantity": 1,
+                "unitValue": 50000,
+                "discount": null,
+                "total": 50000
+            }
+        ],
+        "totals": {
+            "subTotalNoDiscounts": 43103.45,
+            "discounts": 0,
+            "total": 50000,
+            "taxes": 6896.55
+        }
+    }
+]
+```
+
+Servicio para consultar las facturas de una compañía.
+
+### HTTP Request
+
+`GET /facturala/api/companies/:companyId/invoices`<br>
+`Accept: application/json`<br>
+`Content-Type: application/json`<br>
+`Authorization: :authToken`<br>
+
+No se debe enviar nada en el body del llamado.
+
+### HTTP Response
+
+Las posibles respuestas que puede generar este servicio son:
+
+1. `Status Code: 200`<br>
+Indica que se ha retornado el resultado esperado.<br><br>
+1. `Status code: 400`<br>
+Indica que el companyId enviado en la URL no es válido.<br><br>
+1. `Status code: 401`<br>
+Indica que el token de autorización enviado en el header 'Authorization' no es un token válido.<br><br>
+1. `Status code: 403`<br>
+Indica que el usuario no tiene permisos para ejecutar el request.<br><br>
+1. `Status code: 500`<br>
+Indica que hubo un error de Factúrala, por favor contacte al equipo de soporte.<br>
