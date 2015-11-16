@@ -70,7 +70,6 @@ Authorization: 66e58291f7cbcd5157f3
 > El llamado al API fue exitoso si retorna la siguiente respuesta:
 
 ```http
-
 HTTP/1.1 201 Created
 Content-Type: application/json
 
@@ -162,6 +161,13 @@ Authorization: 66e58291f7cbcd5157f3
 {
     "state": "PAID"
 }
+```
+
+> El llamado al API fue exitoso si retorna la siguiente respuesta:
+
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json
 ```
 
 Servicio para actualizar el estado de una factura.<br>
