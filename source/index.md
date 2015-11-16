@@ -267,7 +267,7 @@ Servicio para consultar una factura específica de una compañía.
 
 ### HTTP Request
 
-`GET /facturala/api/companies/:companyId/invoices`<br>
+`GET /facturala/api/companies/:companyId/invoices/:invoiceNumber`<br>
 `Accept: application/json`<br>
 `Content-Type: application/json`<br>
 `Authorization: :authToken`<br>
