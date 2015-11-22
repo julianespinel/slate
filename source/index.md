@@ -40,9 +40,8 @@ Content-Type: application/json;charset=UTF-8
 Authorization: 66e58291f7cbcd5157f3
 
 {
-    "creationDate": "2015-11-16T00:03:53.846Z",
-    "dueDate": "2015-12-31T05:00:00.000Z",
-    "state": "PENDING",
+    "creationDate": "2015-11-22T18:45:22.339Z",
+    "dueDate": "2015-11-30T05:00:00.000Z",
     "customer": {
         "idType": "CC",
         "country": "Colombia",
@@ -60,10 +59,7 @@ Authorization: 66e58291f7cbcd5157f3
             "unitValue": 1600000,
             "quantity": 1
         }
-    ],
-    "thanks": "Gracias",
-    "note": "Se aplicará una multa equivalente al 1.5% despues de 30 días de mora.",
-    "footer": "Factura creada en computador y es válida sin firma y sello."
+    ]
 }
 ```
 
@@ -74,52 +70,37 @@ HTTP/1.1 201 Created
 Content-Type: application/json
 
 {
-    "creationDate": "2015-11-16T00:03:53.846Z",
-    "dueDate": "2015-12-31T05:00:00.000Z",
-    "state": "PENDING",
-    "invoicePDFUrl": "",
-    "invoiceTemplate": {
-        "companyId": "56491cd4e4b0c19ae3b74ed3",
-        "header": null,
-        "companyData": {
-            "name": "Facturala",
-            "address": "Cll 123 # 12 - 23",
-            "phone": "1234567",
-            "email": "info@facturala.co",
-            "logoUrl": "1da7993d-931a-414b-b494-82c658965d8c.png"
-        },
-        "thanks": "Gracias",
-        "note": "Se aplicará una multa equivalente al 1.5% despues de 30 días de mora.",
-        "footer": "Factura creada en computador y es válida sin firma y sello.",
-        "templateName": "template.ftl"
-    },
-    "number": "1",
-    "customer": {
-        "name": "Carlos Rodriguez",
-        "idType": "CC",
-        "idNumber": "304204672683",
-        "address": "Cl 34 # 45 - 10",
-        "city": "Medellín",
-        "state": "Antioquia",
-        "country": "Colombia",
-        "email": "crodriguez@gmail.com"
-    },
-    "items": [
-        {
-            "name": "Computador",
-            "description": "Asus K45V",
-            "quantity": 1,
-            "unitValue": 1600000,
-            "discount": null,
-            "total": 1600000
-        }
-    ],
-    "totals": {
-        "subTotalNoDiscounts": 1379310.34,
-        "discounts": 0,
-        "total": 1600000,
-        "taxes": 220689.65
+  "creationDate": "2015-11-22T18:45:22.339Z",
+  "dueDate": "2015-11-30T05:00:00.000Z",
+  "state": "PENDING",
+  "invoicePDFUrl": "https://s3-us-west-2.amazonaws.com/facturala/pdfs/56520bf3c8300134bb82f41f/2.pdf",
+  "number": "2",
+  "customer": {
+    "name": "Carlos Rodriguez",
+    "idType": "CC",
+    "idNumber": "304204672683",
+    "address": "Cl 34 # 45 - 10",
+    "city": "Medellín",
+    "state": "Antioquia",
+    "country": "Colombia",
+    "email": "crodriguez@gmail.com"
+  },
+  "items": [
+    {
+      "name": "Computador",
+      "description": "Asus K45V",
+      "quantity": 1,
+      "unitValue": 1600000,
+      "discount": null,
+      "total": 1600000
     }
+  ],
+  "totals": {
+    "subTotalNoDiscounts": 1379310.34,
+    "discounts": 0,
+    "total": 1600000,
+    "taxes": 220689.65
+  }
 }
 ```
 
@@ -214,52 +195,37 @@ HTTP/1.1 200 OK
 Content-Type: application/json
 
 {
-    "creationDate": "2015-11-16T00:03:53.846Z",
-    "dueDate": "2015-12-31T05:00:00.000Z",
-    "state": "PAID",
-    "invoicePDFUrl": "",
-    "invoiceTemplate": {
-        "companyId": "56491cd4e4b0c19ae3b74ed3",
-        "header": null,
-        "companyData": {
-            "name": "Facturala",
-            "address": "Cll 123 # 12 - 23",
-            "phone": "1234567",
-            "email": "info@facturala.co",
-            "logoUrl": "1da7993d-931a-414b-b494-82c658965d8c.png"
-        },
-        "thanks": "Gracias",
-        "note": "Se aplicará una multa equivalente al 1.5% despues de 30 días de mora.",
-        "footer": "Factura creada en computador y es válida sin firma y sello.",
-        "templateName": "template.ftl"
-    },
-    "number": "1",
-    "customer": {
-        "name": "Carlos Rodriguez",
-        "idType": "CC",
-        "idNumber": "304204672683",
-        "address": "Cl 34 # 45 - 10",
-        "city": "Medellín",
-        "state": "Antioquia",
-        "country": "Colombia",
-        "email": "crodriguez@gmail.com"
-    },
-    "items": [
-        {
-            "name": "Computador",
-            "description": "Asus K45V",
-            "quantity": 1,
-            "unitValue": 1600000,
-            "discount": null,
-            "total": 1600000
-        }
-    ],
-    "totals": {
-        "subTotalNoDiscounts": 1379310.34,
-        "discounts": 0,
-        "total": 1600000,
-        "taxes": 220689.65
+  "creationDate": "2015-11-22T18:45:22.339Z",
+  "dueDate": "2015-11-30T05:00:00.000Z",
+  "state": "PAID",
+  "invoicePDFUrl": "",
+  "number": "2",
+  "customer": {
+    "name": "Carlos Rodriguez",
+    "idType": "CC",
+    "idNumber": "304204672683",
+    "address": "Cl 34 # 45 - 10",
+    "city": "Medellín",
+    "state": "Antioquia",
+    "country": "Colombia",
+    "email": "crodriguez@gmail.com"
+  },
+  "items": [
+    {
+      "name": "Computador",
+      "description": "Asus K45V",
+      "quantity": 1,
+      "unitValue": 1600000,
+      "discount": null,
+      "total": 1600000
     }
+  ],
+  "totals": {
+    "subTotalNoDiscounts": 1379310.34,
+    "discounts": 0,
+    "total": 1600000,
+    "taxes": 220689.65
+  }
 }
 ```
 
@@ -303,26 +269,11 @@ Content-Type: application/json
 
 [
     {
-        "creationDate": "2015-11-16T00:03:53.846Z",
-        "dueDate": "2015-12-31T05:00:00.000Z",
+        "creationDate": "2015-11-22T18:45:22.339Z",
+        "dueDate": "2015-11-30T05:00:00.000Z",
         "state": "PAID",
         "invoicePDFUrl": "",
-        "invoiceTemplate": {
-            "companyId": "56491cd4e4b0c19ae3b74ed3",
-            "header": null,
-            "companyData": {
-                "name": "Facturala",
-                "address": "Cll 123 # 12 - 23",
-                "phone": "1234567",
-                "email": "info@facturala.co",
-                "logoUrl": "1da7993d-931a-414b-b494-82c658965d8c.png"
-            },
-            "thanks": "Gracias",
-            "note": "Se aplicará una multa equivalente al 1.5% despues de 30 días de mora.",
-            "footer": "Factura creada en computador y es válida sin firma y sello.",
-            "templateName": "template.ftl"
-        },
-        "number": "1",
+        "number": "2",
         "customer": {
             "name": "Carlos Rodriguez",
             "idType": "CC",
@@ -351,51 +302,36 @@ Content-Type: application/json
         }
     },
     {
-        "creationDate": "2015-11-16T00:57:19.275Z",
-        "dueDate": "2015-11-21T05:00:00.000Z",
-        "state": "PAID",
+        "creationDate": "2015-11-22T18:45:22.339Z",
+        "dueDate": "2015-11-30T05:00:00.000Z",
+        "state": "PENDING",
         "invoicePDFUrl": "",
-        "invoiceTemplate": {
-            "companyId": "56491cd4e4b0c19ae3b74ed3",
-            "header": null,
-            "companyData": {
-                "name": "Facturala",
-                "address": "Cll 123 # 12 - 23",
-                "phone": "1234567",
-                "email": "info@facturala.co",
-                "logoUrl": "1da7993d-931a-414b-b494-82c658965d8c.png"
-            },
-            "thanks": "Gracias",
-            "note": "Se aplicará una multa equivalente al 1.5% despues de 30 días de mora.",
-            "footer": "Factura creada en computador y es válida sin firma y sello.",
-            "templateName": "template.ftl"
-        },
-        "number": "2",
+        "number": "3",
         "customer": {
-            "name": "Felipe Restrepo",
+            "name": "Alfredo Pineda",
             "idType": "CC",
-            "idNumber": "40750374503",
-            "address": "Cl 145 # 13 - 25",
-            "city": "Bogota",
+            "idNumber": "2386472938",
+            "address": "Cl 98 # 17 - 05",
+            "city": "Bogotá",
             "state": "Cundinamarca",
             "country": "Colombia",
-            "email": "frestrepo@gmail.com"
+            "email": "alfpineda@gmail.com"
         },
         "items": [
             {
-                "name": "Mouse",
-                "description": "Wireless mobile mouse 1000",
+                "name": "Celular",
+                "description": "Samsung Galaxy S6",
                 "quantity": 1,
-                "unitValue": 50000,
+                "unitValue": 1350000,
                 "discount": null,
-                "total": 50000
+                "total": 1350000
             }
         ],
         "totals": {
-            "subTotalNoDiscounts": 43103.45,
+            "subTotalNoDiscounts": 1163793.1,
             "discounts": 0,
-            "total": 50000,
-            "taxes": 6896.55
+            "total": 1350000,
+            "taxes": 186206.9
         }
     }
 ]
