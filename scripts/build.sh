@@ -1,0 +1,2 @@
+cd ..
+rake build
